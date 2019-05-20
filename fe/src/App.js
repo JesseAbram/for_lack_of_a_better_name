@@ -4,20 +4,33 @@ import { Button } from 'react-bootstrap';
 import { simpleAction, secondAction } from './actions/simpleAction';
 import './App.css';
 
+let web3;
+let ethereum;
+
 class App extends Component {
   constructor(props) {
     super(props);
-    this.simpleAction = this.simpleAction.bind(this);
-    this.secondAction = this.secondAction.bind(this);
+    console.log(props);
   }
-
-  simpleAction() {
-    this.props.simpleAction();
+  componentWillMount() {
+    window.addEventListener('load', () => {
+      web3 = global.web3;
+      ethereum = global.ethereum;
+      console.log(web3);
+      console.log(ethereum);
+    });
   }
+  simpleAction = async () => {
+    await ethereum.enable();
+    const account = web3.eth.accounts[0];
+    console.log(account);
+    this.props.simpleAction(account);
+    return account;
+  };
 
-  secondAction() {
+  secondAction = () => {
     this.props.secondAction();
-  }
+  };
 
   render() {
     return (
@@ -40,8 +53,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   ...state
 });
-const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction()),
+const mapDispatchToProps = (dispatch) => ({
+  simpleAction: account => dispatch(simpleAction(account)),
   secondAction: () => dispatch(secondAction())
 });
 export default connect(

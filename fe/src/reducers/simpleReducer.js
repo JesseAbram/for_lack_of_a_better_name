@@ -1,4 +1,9 @@
-export default (state = {}, action) => {
+const initialState = {
+  wallet: undefined,
+  address: undefined
+};
+
+export function appState(state = initialState, action = {}) {
   switch (action.type) {
     case 'SIMPLE_ACTION':
       return {
@@ -11,4 +16,4 @@ export default (state = {}, action) => {
     default:
       return state;
   }
-};
+}
