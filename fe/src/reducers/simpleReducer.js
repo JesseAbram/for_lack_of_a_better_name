@@ -1,6 +1,6 @@
 const initialState = {
-  wallet: undefined,
-  address: undefined
+  wallet: {},
+  address: ''
 };
 
 export function appState(state = initialState, action = {}) {

@@ -22,7 +22,6 @@ class App extends Component {
     await ethereum.enable();
     const account = web3.eth.accounts[0];
     this.props.simpleAction(account);
-    return account;
   };
 
   secondAction = () => {
@@ -50,10 +49,11 @@ class App extends Component {
 const mapStateToProps = state => ({
   ...state
 });
-const mapDispatchToProps = (dispatch) => ({
-  simpleAction: account => dispatch(simpleAction(account)),
-  secondAction: () => dispatch(secondAction())
-});
+const mapDispatchToProps = {
+  simpleAction,
+  secondAction
+}
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
