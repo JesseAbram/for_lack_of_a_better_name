@@ -16,14 +16,11 @@ class App extends Component {
     window.addEventListener('load', () => {
       web3 = global.web3;
       ethereum = global.ethereum;
-      console.log(web3);
-      console.log(ethereum);
     });
   }
   simpleAction = async () => {
     await ethereum.enable();
     const account = web3.eth.accounts[0];
-    console.log(account);
     this.props.simpleAction(account);
     return account;
   };
