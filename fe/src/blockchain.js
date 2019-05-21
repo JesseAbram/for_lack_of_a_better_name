@@ -1,4 +1,4 @@
-const ADDRESS = ''
+const ADDRESS = '0xB77C2D0C471FA60929794CA3Ae9972656777aa73'
 const ABI = [
 	{
 		"constant": true,
