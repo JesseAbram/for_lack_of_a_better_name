@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { simpleAction, secondAction } from './actions/simpleAction';
 import './App.css';
+import {ADDRESS, ABI} from './blockchain'
+import { ethers } from 'ethers';
 
 let web3;
 let ethereum;
@@ -25,7 +27,9 @@ class App extends Component {
   };
 
   secondAction = () => {
-    this.props.secondAction();
+    const iface = new ethers.utils.Interface(ABI);
+    console.log(iface)
+    this.props.secondAction(iface);
   };
 
   render() {

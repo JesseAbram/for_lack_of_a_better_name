@@ -5,9 +5,9 @@ export const simpleAction = account => dispatch => {
   });
 };
 
-export const secondAction = () => dispatch => {
+export const secondAction = (iface) => dispatch => {
   dispatch({
     type: 'SECOND_ACTION',
-    payload: 'yay! second action dispatch'
+    payload: iface
   });
 };

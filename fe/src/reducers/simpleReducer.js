@@ -1,5 +1,5 @@
 const initialState = {
-  wallet: {},
+  iface: {},
   address: ''
 };
 
@@ -7,11 +7,13 @@ export function appState(state = initialState, action = {}) {
   switch (action.type) {
     case 'SIMPLE_ACTION':
       return {
-        result: action.payload
+        ...state,
+        address: action.payload
       };
     case 'SECOND_ACTION':
       return {
-        result: action.payload
+          ...state,
+        iface: action.payload
       };
     default:
       return state;
