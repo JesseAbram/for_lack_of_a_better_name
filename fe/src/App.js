@@ -3,21 +3,34 @@ import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
 import { simpleAction, secondAction } from './actions/simpleAction';
 import './App.css';
+import {ADDRESS, ABI} from './blockchain'
+import { ethers } from 'ethers';
+
+let web3;
+let ethereum;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.simpleAction = this.simpleAction.bind(this);
-    this.secondAction = this.secondAction.bind(this);
+    console.log(props);
   }
+  componentWillMount() {
+    window.addEventListener('load', () => {
+      web3 = global.web3;
+      ethereum = global.ethereum;
+    });
+  }
+  simpleAction = async () => {
+    await ethereum.enable();
+    const account = web3.eth.accounts[0];
+    this.props.simpleAction(account);
+  };
 
-  simpleAction() {
-    this.props.simpleAction();
-  }
-
-  secondAction() {
-    this.props.secondAction();
-  }
+  secondAction = () => {
+    const iface = new ethers.utils.Interface(ABI);
+    console.log(iface)
+    this.props.secondAction(iface);
+  };
 
   render() {
     return (
@@ -40,10 +53,11 @@ class App extends Component {
 const mapStateToProps = state => ({
   ...state
 });
-const mapDispatchToProps = dispatch => ({
-  simpleAction: () => dispatch(simpleAction()),
-  secondAction: () => dispatch(secondAction())
-});
+const mapDispatchToProps = {
+  simpleAction,
+  secondAction
+}
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -1,13 +1,13 @@
-export const simpleAction = () => dispatch => {
+export const simpleAction = account => dispatch => {
   dispatch({
     type: 'SIMPLE_ACTION',
-    payload: 'result_of_simple_action'
+    payload: account
   });
 };
 
-export const secondAction = () => dispatch => {
+export const secondAction = (iface) => dispatch => {
   dispatch({
     type: 'SECOND_ACTION',
-    payload: 'yay! second action dispatch'
+    payload: iface
   });
 };
