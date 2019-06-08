@@ -1,11 +1,11 @@
-export const simpleAction = account => dispatch => {
+export const getWeb3 = account => dispatch => {
   dispatch({
     type: 'SIMPLE_ACTION',
     payload: account
   });
 };
 
-export const secondAction = (iface) => dispatch => {
+export const initiateContract = (iface) => dispatch => {
   dispatch({
     type: 'SECOND_ACTION',
     payload: iface

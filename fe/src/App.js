@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import { simpleAction, secondAction } from './actions/simpleAction';
+import { getWeb3, initiateContract } from './actions/web3';
 import './App.css';
 import {ADDRESS, ABI} from './blockchain'
 import { ethers } from 'ethers';
@@ -20,16 +20,15 @@ class App extends Component {
       ethereum = global.ethereum;
     });
   }
-  simpleAction = async () => {
+  getWeb3 = async () => {
     await ethereum.enable();
     const account = web3.eth.accounts[0];
-    this.props.simpleAction(account);
+    this.props.getWeb3(account);
   };
 
-  secondAction = () => {
+  initiateContract = () => {
     const iface = new ethers.utils.Interface(ABI);
-    console.log(iface)
-    this.props.secondAction(iface);
+    this.props.initiateContract(iface);
   };
 
   render() {
@@ -42,8 +41,8 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload
         </p>
-        <Button onClick={this.simpleAction}>Test redux action</Button>
-        <Button onClick={this.secondAction}>Test second action</Button>
+        <Button onClick={this.getWeb3}>Test redux action</Button>
+        <Button onClick={this.initiateContract}>Test second action</Button>
         <pre>{JSON.stringify(this.props)}</pre>
       </div>
     );
@@ -54,8 +53,8 @@ const mapStateToProps = state => ({
   ...state
 });
 const mapDispatchToProps = {
-  simpleAction,
-  secondAction
+  getWeb3,
+  initiateContract
 }
 
 export default connect(
