@@ -1,7 +1,7 @@
-export const getWeb3 = account => dispatch => {
+export const getWeb3 = web3 => dispatch => {
   dispatch({
     type: 'SIMPLE_ACTION',
-    payload: account
+    payload: web3
   });
 };
 

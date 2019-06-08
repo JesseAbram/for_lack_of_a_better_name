@@ -6,8 +6,7 @@ import './App.css';
 import {ADDRESS, ABI} from './blockchain'
 import { ethers } from 'ethers';
 
-let web3;
-let ethereum;
+
 
 class App extends Component {
   constructor(props) {
@@ -15,21 +14,26 @@ class App extends Component {
     console.log(props);
   }
   componentWillMount() {
-    window.addEventListener('load', () => {
-      web3 = global.web3;
-      ethereum = global.ethereum;
-    });
+    this.getWeb3()
+    this.initiateContract()
   }
+
+  async componentDidMount() { 
+    await this.getWeb3()
+    await this.initiateContract()
+  }
+
   getWeb3 = async () => {
-    await ethereum.enable();
-    const account = web3.eth.accounts[0];
-    this.props.getWeb3(account);
+    await global.ethereum.enable();
+    this.props.getWeb3(global.web3);
+  
   };
 
   initiateContract = () => {
     const iface = new ethers.utils.Interface(ABI);
     this.props.initiateContract(iface);
-  };
+  console.log(this.props)  
+  }
 
   render() {
     return (
@@ -41,9 +45,6 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload
         </p>
-        <Button onClick={this.getWeb3}>Test redux action</Button>
-        <Button onClick={this.initiateContract}>Test second action</Button>
-        <pre>{JSON.stringify(this.props)}</pre>
       </div>
     );
   }
